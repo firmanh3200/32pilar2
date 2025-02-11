@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32 Pilar 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Gaya Dasar */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Header Sticky */
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #fff; /* Judul selalu putih */
+        }
+
+        /* Menu Navigasi */
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav li {
+            margin-left: 20px;
+            position: relative; /* Untuk dropdown */
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ddd;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #007bff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #0056b3;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Floating Action Button (FAB) */
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+        }
+
+        .fab-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .fab-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .fab-options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .fab-options.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .fab-options li {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .theme-colors {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .theme-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+            border: 1px solid #fff;
+        }
+
+        .theme-color:hover {
+            border: 1px solid #ddd;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: #007bff;
+            font-size: 20px;
+            transition: color 0.3s;
+            display: block; /* Ensure it's a block-level element */
+            padding: 5px 0;  /* Add some padding for better click area */
+        }
+
+        .theme-toggle:hover {
+            color: #ddd;
+        }
+
+        /* Kontainer QnA */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            background-color: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .question:hover {
+            background-color: #dee2e6;
+        }
+
+        .answer {
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid #007bff;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .answer.show {
+            display: block;
+        }
+
+        /* Mode Gelap */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        body.dark-mode .header {
+            background-color: #222;
+            color: #fff;
+        }
+
+        body.dark-mode .container {
+            background-color: #444;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode h1 {
+            color: #fff;
+        }
+
+        body.dark-mode .question {
+            background-color: #555;
+            color: #fff;
+        }
+
+        body.dark-mode .question:hover {
+            background-color: #666;
+        }
+
+        body.dark-mode .answer {
+            background-color: #666;
+            border-left: 3px solid #fff;
+            color: #fff;
+        }
+
+        body.dark-mode .fab-icon {
+            background-color: #222;
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            .nav li {
+                margin: 5px 0;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* Warna Tema */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #007bff;
+            --header-text: #fff;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+
+        .header h1 {
+            color: var(--header-text);
+        }
+
+        .container {
+            background-color: #fff;
+        }
+
+        h1 {
+            color: var(--primary-color);
+        }
+
+        .question {
+            background-color: #e9ecef;
+            color: var(--text-color);
+        }
+
+        .question:hover {
+            background-color: #dee2e6;
+        }
+
+        .answer {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--primary-color);
+            color: var(--text-color);
+        }
+
+        body.dark-mode {
+            --secondary-color: #333;
+            --text-color: #f4f4f4;
+            --header-bg: #222;
+            --header-text: #fff;
+        }
+
+        body.dark-mode .container {
+            background-color: #444;
+        }
+        
+        /* Styling untuk card */
+        .social-card {
+            background-color: #fff; /* Warna latar belakang card */
+            border-radius: 8px;        /* Sudut membulat */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+            padding: 15px;               /* Ruang di dalam card */
+            text-align: center;          /* Pusatkan ikon */
+        }
+
+        /* Styling untuk ikon media sosial */
+        .social-icons a {
+            display: inline-block;    /* Tata letak horizontal */
+            margin: 0 10px;            /* Jarak antar ikon */
+            font-size: 24px;           /* Ukuran ikon */
+            color: var(--primary-color);  /* Warna ikon mengikuti tema */
+            text-decoration: none;     /* Hilangkan garis bawah tautan */
+        }
+
+        /* Hover effect (opsional) */
+        .social-icons a:hover {
+            color: #007bff;           /* Warna ikon saat dihover */
+        }
+        
+        .card2 {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: 100%; /* Penting jika konten berbeda tinggi */
+        }
+        
+        
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <img src="https://rb.bps.go.id/assets/img/logobps.png" height="35px" width="auto">
+        <h1>Penataan Tata Laksana</h1>
+        <nav class="nav">
+            <ul>
+                <li class="dropdown">
+                    <a href="#">Menu</a>
+                    <div class="dropdown-content">
+                        <a href="index.html">Beranda</a>
+                        <a href="#">SOP</a>
+                        <a href="spbe.html">SPBE</a>
+                        <a href="kip.html">K I P</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>FAQ: SOP</h1>
+
+        <div class="question" onclick="toggleAnswer('answer2')">
+            <strong>Mengapa SOP menjadi krusial dalam meraih predikat WBK/WBBM?</strong>
+        </div>
+        <div id="answer2" class="answer">
+            Penataan Tata Laksana yang efektif, termasuk SOP yang jelas dan implementatif, sangat penting karena:
+            <ul>
+                <li><b>Mencegah Penyimpangan:</b> SOP yang baik meminimalisir peluang terjadinya korupsi, kolusi, dan nepotisme (KKN) serta penyalahgunaan wewenang.</li>
+                <li><b>Meningkatkan Efisiensi dan Efektivitas:</b> SOP yang jelas mempercepat proses kerja, mengurangi duplikasi, dan meningkatkan hasil yang dicapai.</li>
+                <li><b>Standarisasi Pelayanan:</b> SOP memastikan pelayanan yang konsisten dan berkualitas kepada masyarakat.</li>
+                <li><b>Akuntabilitas:</b> SOP memungkinkan pengukuran kinerja dan pertanggungjawaban yang lebih baik.</li>
+                <li><b>Transparansi:</b>  SOP yang dipublikasikan (misalnya melalui website) meningkatkan transparansi dan akses informasi publik.</li>
+            </ul>
+            Misalnya, Kementerian Keuangan melalui <a href="https://peraturan.bpk.go.id/Details/146628/pmk-no-128pmk012020" target="_blank">Pedoman Penyusunan SOP</a>.
+        </div>
+
+        <div class="question" onclick="toggleAnswer('answer3')">
+            <strong>Bagaimana cara menata SOP yang efektif?</strong>
+        </div>
+        <div id="answer3" class="answer">
+            Penataan SOP yang efektif melibatkan beberapa langkah kunci:
+            <ol>
+                <li><b>Identifikasi Proses Bisnis Utama:</b> Petakan seluruh proses bisnis instansi, identifikasi proses utama yang berdampak langsung pada pelayanan publik dan rawan terhadap penyimpangan.</li>
+                <li><b>Penyusunan/Review SOP:</b>
+                    <ul>
+                        <li>Libatkan seluruh pihak terkait dalam penyusunan SOP (bottom-up).</li>
+                        <li>Pastikan SOP sesuai dengan peraturan perundang-undangan yang berlaku.</li>
+                        <li>Gunakan bahasa yang sederhana, jelas, dan mudah dipahami.</li>
+                        <li>Sertakan bagan alir (flowchart) untuk memperjelas langkah-langkah.</li>
+                        <li>Cantumkan jangka waktu penyelesaian setiap tahapan.</li>
+                        <li>Tentukan pihak-pihak yang bertanggung jawab.</li>
+                    </ul>
+                </li>
+                <li><b>Sosialisasi dan Implementasi:</b>
+                    <ul>
+                        <li>Sosialisasikan SOP kepada seluruh pegawai yang terlibat.</li>
+                        <li>Lakukan pelatihan jika diperlukan.</li>
+                        <li>Pastikan SOP mudah diakses (misalnya, melalui intranet atau website).</li>
+                    </ul>
+                </li>
+                <li><b>Monitoring dan Evaluasi:</b>
+                    <ul>
+                        <li>Lakukan monitoring secara berkala untuk memastikan SOP dijalankan dengan benar.</li>
+                        <li>Evaluasi efektivitas SOP secara periodik (misalnya, setiap 6 bulan atau 1 tahun).</li>
+                        <li>Identifikasi potensi perbaikan dan lakukan revisi SOP jika diperlukan.</li>
+                    </ul>
+                </li>
+                <li><b>Pengelolaan Dokumen SOP:</b>
+                    <ul>
+                        <li>Tentukan sistem penomoran dan penyimpanan SOP yang terstruktur.</li>
+                        <li>Pastikan semua versi SOP terdokumentasi dengan baik.</li>
+                    </ul>
+                </li>
+            </ol>
+            "Kementerian Keuangan menggunakan SOP untuk <a href="https://sippn.menpan.go.id/images/article/temp/KMK%20601%20KM1%202020-20220414121137.pdf" target="_blank">Layanan Unggulannya</a>."
+        </div>
+
+        <div class="question" onclick="toggleAnswer('answer4')">
+            <strong>Bagaimana SOP bisa diintegrasikan dengan Sistem Pemerintahan Berbasis Elektronik (SPBE) untuk mendukung WBK/WBBM?</strong>
+        </div>
+        <div id="answer4" class="answer">
+            Integrasi SOP dengan SPBE sangat penting untuk meningkatkan efisiensi dan transparansi. Beberapa contohnya:
+            <ul>
+                <li><b>Otomatisasi Proses:</b>  Sebagian langkah dalam SOP dapat diotomatisasi melalui sistem informasi, misalnya pengajuan perizinan secara online, persetujuan digital, dan notifikasi otomatis.</li>
+                <li><b>Tracking dan Monitoring:</b> SPBE memungkinkan pelacakan status proses secara <i>real-time</i>, sehingga memudahkan monitoring dan evaluasi pelaksanaan SOP.</li>
+                <li><b>Pengelolaan Dokumen Elektronik:</b>  SOP dan dokumen pendukung lainnya dapat disimpan dan dikelola secara elektronik, sehingga mudah diakses dan dicari.</li>
+                <li><b>Analisis Data:</b> Data yang terkumpul melalui SPBE dapat dianalisis untuk mengidentifikasi potensi perbaikan dalam SOP.</li>
+            </ul>
+        </div>
+
+        <div class="question" onclick="toggleAnswer('answer5')">
+            <strong>Apa saja tantangan yang sering dihadapi dalam penataan SOP?</strong>
+        </div>
+        <div id="answer5" class="answer">
+            Beberapa tantangan umum dalam penataan SOP meliputi:
+            <ul>
+                <li><b>Resistensi Perubahan:</b> Pegawai mungkin enggan mengubah kebiasaan lama dan mengikuti SOP yang baru.  Solusinya adalah dengan melibatkan mereka dalam proses penyusunan SOP, memberikan sosialisasi dan pelatihan yang memadai, serta menunjukkan manfaat SOP secara konkret.</li>
+                <li><b>Kurangnya Sumber Daya:</b>  Penyusunan dan implementasi SOP memerlukan waktu, tenaga, dan anggaran. Solusinya adalah dengan memprioritaskan proses bisnis yang paling penting, memanfaatkan sumber daya yang ada secara efisien, dan mencari dukungan dari pihak eksternal jika diperlukan.</li>
+                <li><b>SOP Tidak Diperbarui:</b> SOP yang tidak diperbarui akan menjadi usang dan tidak relevan. Solusinya adalah dengan melakukan evaluasi dan revisi SOP secara berkala, serta menunjuk pihak yang bertanggung jawab untuk memelihara SOP.</li>
+                <li><b>Kurangnya Komitmen Pimpinan:</b> Tanpa komitmen dari pimpinan, penataan SOP tidak akan berhasil. Solusinya adalah dengan mengkomunikasikan pentingnya penataan SOP kepada pimpinan, melibatkan mereka dalam proses pengambilan keputusan, dan memberikan laporan kemajuan secara teratur.</li>
+            </ul>
+        </div>
+    
+    </div>
+    
+    <div class="container">
+        <div class="social-card">
+            <h3>SOP di BPS Provinsi Jawa Barat</h3>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="btn btn-round btn-outline-primary">
+                        <a href="https://ppid.bps.go.id/upload/doc/Proses_Bisnis_di_lingkungan_BPS_1731558293.pdf" target="_blank" style="text-decoration:none;">
+                        SOP Peta Proses Bisnis
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn btn-round btn-outline-success">
+                        <a href="https://drive.google.com/file/d/1flUDC20V2PGAAfQhSjhWhFjvyFYSzrSL/view?usp=drive_link" target="_blank" style="text-decoration:none;">
+                        SOP Teknologi Informasi
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn btn-round btn-outline-warning">
+                        <a href="https://ppid.bps.go.id/upload/doc/Standar_Layanan_Informasi_Publik_BPS_2022_1663732424.pdf" target="_blank" style="text-decoration:none;">
+                        SOP Pelayanan Informasi Publik
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn btn-round btn-outline-danger">
+                        <a href="https://ppid.bps.go.id/upload/doc/Perka_BPS_Nomor_65_Tahun_2024_Tentang_Standar_Pelayanan_Statistik_Terpadu_1728957016.pdf" target="_blank" style="text-decoration:none;">
+                        SOP Pelayanan Statistik Terpadu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="container">
+        <div class="footer">
+        <center>
+        <div class="row">
+            <div class="col-sm-9">
+                <img src="https://rb.bps.go.id/assets/img/logorb.png" width="75px" height="75px">
+                
+                <img src="https://jabar.bps.go.id/_next/image?url=https%3A%2F%2Fweb-api.bps.go.id%2Fcover.php%3Ff%3D%2B7KK4f1SkLT2mUtN51IJhWQwRmF3ODNkTzE1UERod3ZPa3NRL3NrY1I2TGRNRUV2VmFSVnRaRm80R21qU1pRV0dPRFo2VWltZDduT0FaQXBTTWY0WlRoOFhIM09qZm0yK1NCRGF3PT0%3D&w=1080&q=75" width="auto" height="75px">
+            
+            </div>
+            <div class="col-sm-3">
+                <p class="text-center">Tim Penataan Tata Laksana @ BPS Provinsi Jawa Barat</p>
+            </div>
+        </div>
+        </center>
+    </div>
+
+    </div>
+    
+    <div class="fab-container">
+        <div class="fab-icon">
+            <i class="fas fa-cog"></i>
+        </div>
+        <ul class="fab-options">
+            <li>
+                <div class="theme-colors">
+                    <span class="theme-color" style="background-color: green;" onclick="setTheme('green')"></span>
+                    <span class="theme-color" style="background-color: orange;" onclick="setTheme('orange')"></span>
+                    <span class="theme-color" style="background-color: purple;" onclick="setTheme('purple')"></span>
+                    <span class="theme-color" style="background-color: blue;" onclick="setTheme('blue')"></span>
+                    <span class="theme-color" style="background-color: red;" onclick="setTheme('red')"></span>
+                </div>
+            </li>
+            <li>
+                <span class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function toggleAnswer(id) {
+            var answer = document.getElementById(id);
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+            } else {
+                answer.classList.add('show');
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
+        function setTheme(color) {
+            document.documentElement.style.setProperty('--primary-color', color);
+            document.documentElement.style.setProperty('--header-bg', color);
+        }
+
+        // FAB Functionality
+        const fab = document.querySelector('.fab-container');
+        const fabOptions = document.querySelector('.fab-options');
+
+        fab.addEventListener('click', () => {
+            fabOptions.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

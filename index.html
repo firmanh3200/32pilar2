@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32 Pilar 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Gaya Dasar */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Header Sticky */
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #fff; /* Judul selalu putih */
+        }
+
+        /* Menu Navigasi */
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav li {
+            margin-left: 20px;
+            position: relative; /* Untuk dropdown */
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ddd;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #007bff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #0056b3;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Floating Action Button (FAB) */
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+        }
+
+        .fab-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .fab-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .fab-options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .fab-options.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .fab-options li {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .theme-colors {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .theme-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+            border: 1px solid #fff;
+        }
+
+        .theme-color:hover {
+            border: 1px solid #ddd;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: #007bff;
+            font-size: 20px;
+            transition: color 0.3s;
+            display: block; /* Ensure it's a block-level element */
+            padding: 5px 0;  /* Add some padding for better click area */
+        }
+
+        .theme-toggle:hover {
+            color: #ddd;
+        }
+
+        /* Kontainer QnA */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            background-color: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .question:hover {
+            background-color: #dee2e6;
+        }
+
+        .answer {
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid #007bff;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .answer.show {
+            display: block;
+        }
+
+        /* Mode Gelap */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        body.dark-mode .header {
+            background-color: #222;
+            color: #fff;
+        }
+
+        body.dark-mode .container {
+            background-color: #444;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode h1 {
+            color: #fff;
+        }
+
+        body.dark-mode .question {
+            background-color: #555;
+            color: #fff;
+        }
+
+        body.dark-mode .question:hover {
+            background-color: #666;
+        }
+
+        body.dark-mode .answer {
+            background-color: #666;
+            border-left: 3px solid #fff;
+            color: #fff;
+        }
+
+        body.dark-mode .fab-icon {
+            background-color: #222;
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            .nav li {
+                margin: 5px 0;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* Warna Tema */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #007bff;
+            --header-text: #fff;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+
+        .header h1 {
+            color: var(--header-text);
+        }
+
+        .container {
+            background-color: #fff;
+        }
+
+        h1 {
+            color: var(--primary-color);
+        }
+
+        .question {
+            background-color: #e9ecef;
+            color: var(--text-color);
+        }
+
+        .question:hover {
+            background-color: #dee2e6;
+        }
+
+        .answer {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--primary-color);
+            color: var(--text-color);
+        }
+
+        body.dark-mode {
+            --secondary-color: #333;
+            --text-color: #f4f4f4;
+            --header-bg: #222;
+            --header-text: #fff;
+        }
+
+        body.dark-mode .container {
+            background-color: #444;
+        }
+        
+        /* Styling untuk card */
+        .social-card {
+            background-color: #fff; /* Warna latar belakang card */
+            border-radius: 8px;        /* Sudut membulat */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+            padding: 15px;               /* Ruang di dalam card */
+            text-align: center;          /* Pusatkan ikon */
+        }
+
+        /* Styling untuk ikon media sosial */
+        .social-icons a {
+            display: inline-block;    /* Tata letak horizontal */
+            margin: 0 10px;            /* Jarak antar ikon */
+            font-size: 24px;           /* Ukuran ikon */
+            color: var(--primary-color);  /* Warna ikon mengikuti tema */
+            text-decoration: none;     /* Hilangkan garis bawah tautan */
+        }
+
+        /* Hover effect (opsional) */
+        .social-icons a:hover {
+            color: #007bff;           /* Warna ikon saat dihover */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <img src="https://rb.bps.go.id/assets/img/logobps.png" height="35px" width="auto">
+        <h1>Penataan Tata Laksana</h1>
+        <nav class="nav">
+            <ul>
+                <li class="dropdown">
+                    <a href="#">Komponen</a>
+                    <div class="dropdown-content">
+                        <a href="sop.html">SOP</a>
+                        <a href="spbe.html">SPBE</a>
+                        <a href="kip.html">K I P</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Q & A</h1>
+
+        <div class="question" onclick="toggleAnswer('answer1')">
+            <strong>Apa itu Penataan Tata Laksana?</strong>
+        </div>
+        <div id="answer1" class="answer">
+            Penataan tata laksana adalah upaya untuk menata ulang dan memperbaiki sistem kerja, proses, dan prosedur dalam suatu organisasi agar lebih baik, efisien, efektif, dan transparan. Tujuannya adalah menciptakan lingkungan kerja yang bersih, akuntabel, dan berkinerja tinggi.
+        </div>
+
+        <div class="question" onclick="toggleAnswer('answer2')">
+            <strong>Mengapa Penataan Tata Laksana penting dalam Zona Integritas?</strong>
+        </div>
+        <div id="answer2" class="answer">
+            Dalam Zona Integritas (ZI), penataan tata laksana menjadi sangat penting karena:
+            <ul>
+                <li>Mencegah Korupsi dan Pelanggaran: Dengan tata laksana yang baik, celah untuk korupsi, penyalahgunaan wewenang, dan pelanggaran lainnya akan semakin kecil.</li>
+                <li>Meningkatkan Kualitas Pelayanan: Proses yang efisien dan transparan akan menghasilkan pelayanan publik yang lebih baik dan memuaskan bagi masyarakat.</li>
+                <li>Membangun Kepercayaan: Tata laksana yang baik akan meningkatkan kepercayaan publik terhadap organisasi.</li>
+            </ul>
+        </div>
+
+        <div class="question" onclick="toggleAnswer('answer3')">
+            <strong>Apa saja komponen utama Penataan Tata Laksana?</strong>
+        </div>
+        <div id="answer3" class="answer">
+            <ol>
+                <li><b>Prosedur Operasional Tetap (SOP):</b>
+                    <ul>
+                        <li><i>Pentingnya:</i> SOP adalah panduan langkah demi langkah untuk melaksanakan suatu tugas.</li>
+                        <li><i>Langkah Penataan:</i>
+                            <ul>
+                                <li>Pastikan SOP sesuai dengan peta proses bisnis instansi.</li>
+                                <li>SOP diterapkan secara konsisten dalam pelaksanaan tugas.</li>
+                                <li>SOP dievaluasi secara berkala untuk diperbaiki.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><b>Sistem Pemerintahan Berbasis Elektronik (SPBE):</b>
+                    <ul>
+                        <li><i>Pentingnya:</i> Memanfaatkan teknologi untuk meningkatkan efisiensi dan transparansi.</li>
+                        <li><i>Langkah Penataan:</i>
+                            <ul>
+                                <li>Mengukur kinerja dengan sistem berbasis teknologi.</li>
+                                <li>SDM (Sumber Daya Manusia) dikelola dengan sistem informasi.</li>
+                                <li>Pelayanan publik dilakukan secara online.</li>
+                                <li>Monitoring dan evaluasi pemanfaatan teknologi informasi.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><b>Keterbukaan Informasi Publik:</b>
+                    <ul>
+                        <li><i>Pentingnya:</i> Masyarakat berhak tahu tentang kegiatan instansi pemerintah.</li>
+                        <li><i>Langkah Penataan:</i>
+                            <ul>
+                                <li>Kebijakan keterbukaan informasi diterapkan.</li>
+                                <li>Informasi disajikan dengan baik (melalui website, media sosial, dll.).</li>
+                                <li>Monitoring dan evaluasi keterbukaan informasi dilakukan.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="question" onclick="toggleAnswer('answer4')">
+            <strong>Apa Inti dari Penataan Tata Laksana?</strong>
+        </div>
+        <div id="answer4" class="answer">
+            Intinya adalah memperbaiki sistem kerja secara menyeluruh, mulai dari SOP, pemanfaatan teknologi, hingga keterbukaan informasi. Dengan tata laksana yang baik, organisasi akan lebih efisien, transparan, dan akuntabel, sehingga meningkatkan kepercayaan publik dan mencegah korupsi.
+        </div>
+        
+        <div class="question" onclick="toggleAnswer('answer5')">
+            <strong>Baca Pedoman</strong>
+        </div>
+        <div id="answer5" class="answer">
+            <ul>
+                <li><a href="https://www.appsheet.com/template/gettablefileurl?appName=ReferensiLKE-1001690727&tableName=1.2%20Ref.File&fileName=Berkas%2FBerkas%20Penting%20Lainnya%2F%2F4-2021.Permen%20PANRB%20No.%2090%20Tahun%202021.File.050215.%2090%20Tahun%202021.pdf&appVersion=1.000699&signature=09ab54b2a0a5911a2a12f319acd783e2b65d155d26b9aec0f3d49c44b11ec8d3dc223bda6cb5b1290589ca960f1fbc5f" target="_blank">
+                PerMenPAN-RB
+                </a>
+                </li>
+                <br>
+                <li><a href="https://www.appsheet.com/template/gettablefileurl?appName=ReferensiLKE-1001690727&tableName=1.2%20Ref.File&fileName=Berkas%2FBerkas%20Penting%20Lainnya%2F%2F3-2023.Pedoman%20Pembangunan%20ZI.File.032654.pdf&appVersion=1.000699&signature=74795415a44b5bbbb268ef731e3809ff6ac66f487990a034aee30645ae458cea849844a2a366ed29e76edbccd9dfb269" target="_blank">
+                Pedoman BPS
+                </a>
+                </li>
+                <br>
+                
+                <li><a href="https://docs.google.com/spreadsheets/d/1DgkP27PPq2KeOtmdOCm15wa8lszM5MMSPoP0N_XxP6g/edit?gid=279112860#gid=279112860" target="_blank">
+                Template Rencana Kerja
+                </a>
+                </li>
+
+                <br>
+                <li><a href="https://docs.google.com/document/d/1nHWgqWRPjtncAlHd55sT81EfOOU0Xl3e/edit?usp=drive_link&ouid=111867882724584455003&rtpof=true&sd=true" target="_blank">
+                Template Laporan Tahunan
+                </a></li>
+
+                <br>
+                <li><a href="https://drive.google.com/drive/folders/10rTTZeZCzYlyAJUx52-LinrhEYlfxa-O?usp=drive_link" target="_blank">
+                Template Monev SPBE Triwulanan
+                </a></li>
+                
+                <br>
+                <li><a href="https://drive.google.com/drive/folders/1TuiU7wsnkQYJ41ukPx5S8IvABMSWeYkl?usp=drive_link" target="_blank">
+                Template Laporan KIP Bulanan
+                </a></li>
+                
+                <br>
+                <li><a href="https://license365bps-my.sharepoint.com/personal/rb_bps_license365bps_onmicrosoft_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Frb%5Fbps%5Flicense365bps%5Fonmicrosoft%5Fcom%2FDocuments%2FDOKUMEN%20RB%20TAHUN%202024%2F1%2E%20Sosialisasi%20Kegiatan%20RB%2FPlatform%20RB%2FResource%20Platform%20RB%2FLink%2F2023%2E10%2E27%20%20Update%20Road%20Map%20RB%20BPS%202020%2D2024%20%2Dr%2Epdf&parent=%2Fpersonal%2Frb%5Fbps%5Flicense365bps%5Fonmicrosoft%5Fcom%2FDocuments%2FDOKUMEN%20RB%20TAHUN%202024%2F1%2E%20Sosialisasi%20Kegiatan%20RB%2FPlatform%20RB%2FResource%20Platform%20RB%2FLink&ga=1" target="_blank">
+                RoadMap RB BPS 2020-2024
+                </a></li>
+                
+            </ul>
+            
+            
+            
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <div class="social-card">
+            <h3>Media Informasi Resmi BPS Provinsi Jawa Barat</h3>
+            <br>
+            <div class="social-icons">
+                <a href="https://jabar.bps.go.id" target="_blank"><i class="fas fa-globe"></i> Website</a> <!-- Web -->
+                
+                <a href="https://www.instagram.com/bpsjabar/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a> <!-- Instagram -->
+                
+                <a href="https://www.facebook.com/bpsprovjabar/" target="_blank"><i class="fab fa-facebook"></i></a> <!-- Facebook -->
+                
+                <a href="https://ppid.bps.go.id?mfd=3200" target="_blank"><i class="fas fa-globe"></i> PPID</a> <!-- Web -->
+                
+                <a href="https://www.youtube.com/@bpsjabar32" target="_blank"><i class="fab fa-youtube"></i></a> <!-- YouTube -->
+                
+                <a href="https://x.com/StatistikJabar" target="_blank"><i class="fab fa-twitter"></i></a> <!-- Twitter -->
+                
+                <a href="https://www.tiktok.com/@bpsjabar" target="_blank"><i class="fab fa-tiktok"></i></a> <!-- TikTok -->
+                
+                <a href="https://sippn.menpan.go.id/instansi/177606/sekretariat-utama/pelayanan-statistik-terpadu-bps-provinsi-jawa-barat" target="_blank"><i class="fas fa-globe"></i> SIPPN</a> <!-- Web -->
+                
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="footer">
+        <center>
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="https://rb.bps.go.id/assets/img/logorb.png" width="75px" height="75px">
+                
+                <img src="https://jabar.bps.go.id/_next/image?url=https%3A%2F%2Fweb-api.bps.go.id%2Fcover.php%3Ff%3D%2B7KK4f1SkLT2mUtN51IJhWQwRmF3ODNkTzE1UERod3ZPa3NRL3NrY1I2TGRNRUV2VmFSVnRaRm80R21qU1pRV0dPRFo2VWltZDduT0FaQXBTTWY0WlRoOFhIM09qZm0yK1NCRGF3PT0%3D&w=1080&q=75" width="auto" height="75px">
+            
+            </div>
+            <div class="col-sm-6">
+                <p class="text-center">Tim Penataan Tata Laksana @ BPS Provinsi Jawa Barat</p>
+            </div>
+        </div>
+        </center>
+    </div>
+
+    </div>
+    
+    
+    <div class="fab-container">
+        <div class="fab-icon">
+            <i class="fas fa-cog"></i>
+        </div>
+        <ul class="fab-options">
+            <li>
+                <div class="theme-colors">
+                    <span class="theme-color" style="background-color: green;" onclick="setTheme('green')"></span>
+                    <span class="theme-color" style="background-color: orange;" onclick="setTheme('orange')"></span>
+                    <span class="theme-color" style="background-color: purple;" onclick="setTheme('purple')"></span>
+                    <span class="theme-color" style="background-color: blue;" onclick="setTheme('blue')"></span>
+                    <span class="theme-color" style="background-color: red;" onclick="setTheme('red')"></span>
+                </div>
+            </li>
+            <li>
+                <span class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            var answer = document.getElementById(id);
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+            } else {
+                answer.classList.add('show');
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
+        function setTheme(color) {
+            document.documentElement.style.setProperty('--primary-color', color);
+            document.documentElement.style.setProperty('--header-bg', color);
+        }
+
+        // FAB Functionality
+        const fab = document.querySelector('.fab-container');
+        const fabOptions = document.querySelector('.fab-options');
+
+        fab.addEventListener('click', () => {
+            fabOptions.classList.toggle('active');
+        });
+    </script>
+    
+</body>
+</html>
