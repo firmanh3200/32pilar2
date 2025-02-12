@@ -1,11 +1,13 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>32 Pilar 2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<style>
         /* Gaya Dasar */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -502,7 +504,110 @@
         
     </div>
     
-    <div class="row">
+	<div class="container">
+        <h2>Aspek Pemenuhan</h2>
+
+        <div class="accordion" id="myAccordion">
+
+			<div class="accordion-item">
+				<h2 class="question accordion-header primary" id="headingOne">
+					<button class="question accordion-button btn-round btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<b>i. Prosedur Operasional Tetap (SOP) Kegiatan Utama</b>
+					</button>
+				</h2>
+				<div id="collapseOne" class="answer accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#myAccordion">
+					<div class="accordion-body">
+						<div>a. SOP mengacu pada peta proses bisnis instansi</div>
+						<div>b. Prosedur operasional tetap (SOP) telah diterapkan</div>
+						<div>c. Prosedur operasional tetap (SOP) telah dievaluasi</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<h2 class="question accordion-header" id="headingTwo">
+					<button class="question accordion-button collapsed btn-round btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						<b>ii. Sistem Pemerintahan Berbasis Elektronik (SPBE)</b>
+					</button>
+				</h2>
+				<div id="collapseTwo" class="answer accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#myAccordion">
+					<div class="accordion-body">
+						<div>a. Sistem pengukuran kinerja unit sudah menggunakan teknologi informasi</div>
+						<div>b. Operasionalisasi manajemen SDM sudah menggunakan teknologi informasi</div>
+						<div>c. Pemberian pelayanan kepada publik sudah menggunakan teknologi informasi</div>
+						<div>d. Telah dilakukan monitoring dan dan evaluasi terhadap pemanfaatan teknologi informasi dalam pengukuran kinerja unit, operasionalisasi SDM, dan pemberian layanan kepada publik</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<h2 class="question accordion-header" id="headingThree">
+					<button class="question accordion-button collapsed btn-round btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						<b>iii. Keterbukaan Informasi Publik</b>
+					</button>
+				</h2>
+				<div id="collapseThree" class="answer accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#myAccordion">
+					<div class="accordion-body">
+						<div>a. Kebijakan tentang  keterbukaan informasi publik telah diterapkan</div>
+						<div>b. Telah dilakukan monitoring dan evaluasi pelaksanaan kebijakan keterbukaan informasi publik</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div class="container">
+		<h2>Aspek Reform</h2>
+		<div class="accordion" id="myAccordion2">
+
+			<div class="accordion-item">
+				<h2 class="question accordion-header" id="headingA">
+					<button class="question accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA" aria-expanded="true" aria-controls="collapseA">
+						<b>i. Peta Proses Bisnis Mempengaruhi Penyederhanaan Jabatan</b>
+					</button>
+				</h2>
+				<div id="collapseA" class="answer accordion-collapse collapse" aria-labelledby="headingA" data-bs-parent="#myAccordion2">
+					<div class="accordion-body">
+						<div>a. Telah disusun peta proses bisnis dengan adanya penyederhanaan jabatan</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<h2 class="question accordion-header" id="headingB">
+					<button class="question accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseB" aria-expanded="false" aria-controls="collapseB">
+						<b>ii. Sistem Pemerintahan Berbasis Elektronik (SPBE) yang Terintegrasi</b>
+					</button>
+				</h2>
+				<div id="collapseB" class="answer accordion-collapse collapse" aria-labelledby="headingB" data-bs-parent="#myAccordion2">
+					<div class="accordion-body">
+						<div>a. Implementasi SPBE telah terintegrasi dan mampu mendorong pelaksanaan pelayanan publik yang lebih cepat dan efisien</div>
+						<div>b. Implementasi SPBE telah terintegrasi dan mampu mendorong pelaksanaan pelayanan internal organisasi yang lebih cepat dan efisien</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<h2 class="question accordion-header" id="headingC">
+					<button class="question accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC" aria-expanded="false" aria-controls="collapseC">
+						<b>iii. Transformasi Digital Memberikan Nilai Manfaat</b>
+					</button>
+				</h2>
+				<div id="collapseC" class="answer accordion-collapse collapse" aria-labelledby="headingC" data-bs-parent="#myAccordion2">
+					<div class="accordion-body">
+						<div>a. Transformasi digital pada bidang proses bisnis utama telah mampu memberikan nilai manfaat bagi unit kerja secara optimal</div>
+						<div>b. Transformasi digital pada bidang administrasi pemerintahan telah mampu memberikan nilai manfaat bagi unit kerja secara optimal</div>
+						<div>c. Transformasi digital pada bidang pelayanan publik telah mampu memberikan nilai manfaat bagi unit kerja secara optimal</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+	
+    <div class="container">
         <div class="social-card">
             <h3>Media Informasi Resmi BPS Provinsi Jawa Barat</h3>
             <br>
@@ -528,21 +633,19 @@
     </div>
     <br><br>
     <div class="row">
-        <div class="footer">
-        <center>
-        <div class="row">
-            <div class="col-sm-6">
-                <img src="https://rb.bps.go.id/assets/img/logorb.png" width="75px" height="75px">
-                
-                <img src="https://jabar.bps.go.id/_next/image?url=https%3A%2F%2Fweb-api.bps.go.id%2Fcover.php%3Ff%3D%2B7KK4f1SkLT2mUtN51IJhWQwRmF3ODNkTzE1UERod3ZPa3NRL3NrY1I2TGRNRUV2VmFSVnRaRm80R21qU1pRV0dPRFo2VWltZDduT0FaQXBTTWY0WlRoOFhIM09qZm0yK1NCRGF3PT0%3D&w=1080&q=75" width="auto" height="75px">
-            
-            </div>
-            <div class="col-sm-6">
-                <p class="text-center">Tim Penataan Tata Laksana @ BPS Provinsi Jawa Barat</p>
-            </div>
-        </div>
-        </center>
-    </div>
+        <div class="social-card">
+			<center>
+				<div class="col-sm-6">
+					<img src="https://rb.bps.go.id/assets/img/logorb.png" width="75px" height="75px">
+					
+					<img src="https://jabar.bps.go.id/_next/image?url=https%3A%2F%2Fweb-api.bps.go.id%2Fcover.php%3Ff%3D%2B7KK4f1SkLT2mUtN51IJhWQwRmF3ODNkTzE1UERod3ZPa3NRL3NrY1I2TGRNRUV2VmFSVnRaRm80R21qU1pRV0dPRFo2VWltZDduT0FaQXBTTWY0WlRoOFhIM09qZm0yK1NCRGF3PT0%3D&w=1080&q=75" width="auto" height="75px">
+				
+				</div>
+				<div class="col-sm-6">
+					<p class="text-center">Tim Penataan Tata Laksana @ BPS Provinsi Jawa Barat</p>
+				</div>
+			</center>
+		</div>
 
     </div>
     
@@ -568,6 +671,8 @@
             </li>
         </ul>
     </div>
+	<!-- Bootstrap JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         function toggleAnswer(id) {
