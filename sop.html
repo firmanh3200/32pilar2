@@ -1,12 +1,12 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>32 Pilar 2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
         /* Gaya Dasar */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -173,7 +173,7 @@
 
         /* Kontainer QnA */
         .container {
-            max-width: 75%;
+            max-width: 85%;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -349,15 +349,6 @@
         .social-icons a:hover {
             color: #007bff;           /* Warna ikon saat dihover */
         }
-        
-        .card2 {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            height: 100%; /* Penting jika konten berbeda tinggi */
-        }
-        
-        
     </style>
 </head>
 <body>
@@ -465,8 +456,40 @@
             </ul>
         </div>
     
+        <div class="question" onclick="toggleAnswer('answer6')">
+            <strong>ASPEK REFORM</strong>
+        </div>
+        <div id="answer6" class="answer">
+            a. Telah disusun peta proses bisnis dengan adanya penyederhanaan jabatan
+        </div>
+    
     </div>
     
+	<div class="container">
+        <div class="social-card">
+            <h1>Aspek Pemenuhan</h1>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="btn btn-round btn-outline-primary">
+                        a. SOP mengacu pada <strong>peta proses bisnis instansi</strong>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn btn-round btn-outline-success">
+                        b. Prosedur operasional tetap (SOP) <strong>telah diterapkan</strong>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn btn-round btn-outline-warning">
+                        c. Prosedur operasional tetap (SOP) <strong>telah dievaluasi</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	
     <div class="container">
         <div class="social-card">
             <h3>SOP di BPS Provinsi Jawa Barat</h3>
@@ -503,23 +526,22 @@
             </div>
         </div>
     </div>
-    <br><br>
-    <div class="container">
-        <div class="footer">
-        <center>
-        <div class="row">
-            <div class="col-sm-9">
-                <img src="https://rb.bps.go.id/assets/img/logorb.png" width="75px" height="75px">
-                
-                <img src="https://jabar.bps.go.id/_next/image?url=https%3A%2F%2Fweb-api.bps.go.id%2Fcover.php%3Ff%3D%2B7KK4f1SkLT2mUtN51IJhWQwRmF3ODNkTzE1UERod3ZPa3NRL3NrY1I2TGRNRUV2VmFSVnRaRm80R21qU1pRV0dPRFo2VWltZDduT0FaQXBTTWY0WlRoOFhIM09qZm0yK1NCRGF3PT0%3D&w=1080&q=75" width="auto" height="75px">
-            
-            </div>
-            <div class="col-sm-3">
-                <p class="text-center">Tim Penataan Tata Laksana @ BPS Provinsi Jawa Barat</p>
-            </div>
-        </div>
-        </center>
-    </div>
+    
+	<br><br>
+    <div class="row">
+        <div class="social-card">
+			<center>
+				<div class="col-sm-6">
+					<img src="https://rb.bps.go.id/assets/img/logorb.png" width="50px" height="50px">
+					
+					<img src="https://jabar.bps.go.id/_next/image?url=https%3A%2F%2Fweb-api.bps.go.id%2Fcover.php%3Ff%3D%2B7KK4f1SkLT2mUtN51IJhWQwRmF3ODNkTzE1UERod3ZPa3NRL3NrY1I2TGRNRUV2VmFSVnRaRm80R21qU1pRV0dPRFo2VWltZDduT0FaQXBTTWY0WlRoOFhIM09qZm0yK1NCRGF3PT0%3D&w=1080&q=75" width="auto" height="50px">
+				
+				</div>
+				<div class="col-sm-6">
+					<p class="text-center">Tim Penataan Tata Laksana @ BPS Provinsi Jawa Barat</p>
+				</div>
+			</center>
+		</div>
 
     </div>
     
@@ -545,9 +567,8 @@
         </ul>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         function toggleAnswer(id) {
